@@ -1,21 +1,31 @@
 :root {
-  --bg: #ffffff;
-  --fg: #1f2328;
-  --muted: #656d76;
-  --border: #d0d7de;
-  --accent: #0969da;
-  --code-bg: #f6f8fa;
+  --bg: #f6f4f1;
+  --fg: #2b1b3d;
+  --muted: #6b6577;
+  --border: #e6e1da;
+  --accent: #c9402c;
+  --code-bg: #f1ede7;
+  --surface: #ffffff;
+  --tag-bg: #fff4e2;
+  --shadow: 0 1px 3px rgba(43, 27, 61, 0.08);
+  --brand-coral: #ff6b57;
+  --brand-yellow: #ffc94a;
+  --brand-end: #2b1b3d;
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0d1117;
-    --fg: #e6edf3;
-    --muted: #8d96a0;
-    --border: #30363d;
-    --accent: #4493f8;
-    --code-bg: #161b22;
+    --bg: #1a1424;
+    --fg: #f3ece4;
+    --muted: #a99fb5;
+    --border: #352a45;
+    --accent: #ff8a78;
+    --code-bg: #241b31;
+    --surface: #241b31;
+    --tag-bg: #352a45;
+    --shadow: none;
+    --brand-end: #fff4e2;
   }
 }
 
@@ -49,7 +59,21 @@ a:hover {
 }
 
 .site-header {
+  background: var(--surface);
   border-bottom: 1px solid var(--border);
+}
+
+/* 로고 3색 띠 */
+.site-header::before {
+  content: '';
+  display: block;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--brand-coral) 0 60%,
+    var(--brand-yellow) 60% 85%,
+    var(--brand-end) 85%
+  );
 }
 
 .header-inner {
@@ -86,20 +110,31 @@ main.container {
   font-size: 0.875rem;
 }
 
-.intro,
 .muted {
   color: var(--muted);
+}
+
+.intro {
+  margin: 8px 0 28px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.4;
 }
 
 .post-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: grid;
+  gap: 14px;
 }
 
 .post-list li {
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  background: var(--surface);
+  border-left: 5px solid var(--brand-coral);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
 }
 
 .post-link {
@@ -130,6 +165,13 @@ main.container {
   gap: 8px 12px;
   font-size: 0.875rem;
   color: var(--muted);
+}
+
+.tag {
+  padding: 0 8px;
+  border-radius: 6px;
+  background: var(--tag-bg);
+  color: var(--fg);
 }
 
 .tag-cloud {
