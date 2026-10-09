@@ -256,6 +256,29 @@ a:hover {
   font-weight: 800;
 }
 
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.category-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.category-list a {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.category {
+  font-weight: 600;
+}
+
 .sidebar .tag-cloud {
   margin: 0;
   gap: 8px;

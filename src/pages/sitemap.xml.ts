@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { url } from '../consts';
+import { CATEGORIES, url } from '../consts';
 import { getPublishedPosts } from '../posts';
 import { escapeXml } from '../xml';
 
@@ -11,6 +11,7 @@ export const GET: APIRoute = async ({ site }) => {
   const entries = [
     { loc: abs(''), lastmod: posts[0]?.data.date },
     { loc: abs('tags/') },
+    ...CATEGORIES.map((c) => ({ loc: abs(`categories/${c.slug}/`) })),
     ...tags.map((tag) => ({ loc: abs(`tags/${tag}/`) })),
     ...posts.map((post) => ({ loc: abs(`posts/${post.id}/`), lastmod: post.data.date })),
   ];

@@ -1,6 +1,6 @@
 ---
 import VisitorCount from './VisitorCount.astro';
-import { formatDate, url } from '../consts';
+import { CATEGORIES, formatDate, url } from '../consts';
 import { getPublishedPosts } from '../posts';
 
 const posts = await getPublishedPosts();
@@ -9,6 +9,10 @@ const counts = new Map<string, number>();
 for (const post of posts) {
   for (const tag of post.data.tags) counts.set(tag, (counts.get(tag) ?? 0) + 1);
 }
+const categories = CATEGORIES.map((c) => ({
+  ...c,
+  count: posts.filter((post) => post.data.category === c.name).length,
+}));
 const tags = [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko'));
 ---
 
@@ -18,6 +22,19 @@ const tags = [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 
     <button type="submit">검색</button>
   </form>
   <VisitorCount />
+  <section class="side-box">
+    <h2>카테고리</h2>
+    <ul class="category-list">
+      {
+        categories.map((c) => (
+          <li>
+            <a href={url(`categories/${c.slug}/`)}>{c.name}</a>
+            <span class="muted">{c.count}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
   <section class="side-box">
     <h2>최근 글</h2>
     <ul class="side-list">

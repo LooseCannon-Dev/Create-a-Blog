@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { DEFAULT_THUMBNAIL, formatDate, url } from '../consts';
+import { DEFAULT_THUMBNAIL, categorySlug, formatDate, url } from '../consts';
 
 interface Props {
   posts: CollectionEntry<'posts'>[];
@@ -21,6 +21,9 @@ const { posts } = Astro.props;
           </a>
           <div class="meta">
             <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+            {post.data.category && (
+              <a class="category" href={url(`categories/${categorySlug(post.data.category)}/`)}>{post.data.category}</a>
+            )}
             {post.data.tags.map((tag) => (
               <a class="tag" href={url(`tags/${tag}/`)}>#{tag}</a>
             ))}
