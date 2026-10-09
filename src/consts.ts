@@ -5,6 +5,15 @@ export const GITHUB_URL = 'https://github.com/LooseCannon-Dev';
 export const COMMENTS_REPO = 'LooseCannon-Dev/Create-a-Blog';
 // GoatCounter 사이트 코드 (https://<코드>.goatcounter.com). 비워 두면 방문자 수 기능이 꺼진다.
 export const GOATCOUNTER_CODE = 'loosecannon-dev';
+// 툴별 카테고리. 글 머리말에 category: <name> 으로 지정한다. 새 툴은 여기에 한 줄 추가한다.
+export const CATEGORIES = [
+  { name: 'OmniTool', slug: 'omnitool' },
+  { name: 'Code History Tracker', slug: 'code-history-tracker' },
+] as const;
+
+export function categorySlug(name: string) {
+  return CATEGORIES.find((c) => c.name === name)?.slug;
+}
 // 글에 image가 없을 때 쓰는 기본 썸네일 (public 기준 경로)
 export const DEFAULT_THUMBNAIL = 'images/logo.png';
 

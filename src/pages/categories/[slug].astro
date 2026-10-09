@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { CATEGORIES } from '../../consts';
+import { getPublishedPosts } from '../../posts';
+
+// 글이 없는 카테고리도 페이지를 만든다 (목록은 "아직 작성된 글이 없습니다."로 표시).
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return CATEGORIES.map((c) => ({
+    params: { slug: c.slug },
+    props: { name: c.name, posts: posts.filter((post) => post.data.category === c.name) },
+  }));
+}
+
+const { name, posts } = Astro.props;
+---
+
+<Base title={name}>
+  <h1>{name}</h1>
+  <PostList posts={posts} />
+</Base>
