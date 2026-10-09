@@ -3,6 +3,8 @@ title: Code History Tracker — 프로젝트 폴더의 변천사를 기록하는
 description: 폴더의 변화를 시점별로 기록하고, 비교하고, 되돌리고, AI가 고친 줄까지 구분해 보여 주는 Windows용 툴입니다.
 date: 2026-10-09
 tags: [툴, CodeHistoryTracker, Windows, AI]
+category: Code History Tracker
+pinned: true
 ---
 
 **Code History Tracker**는 프로젝트 폴더가 시간에 따라 어떻게 바뀌었는지 기록해 두는 Windows용 데스크톱 툴입니다.
