@@ -1,4 +1,5 @@
 ---
+import VisitorCount from './VisitorCount.astro';
 import { formatDate, url } from '../consts';
 import { getPublishedPosts } from '../posts';
 
@@ -16,6 +17,7 @@ const tags = [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 
     <input type="search" name="q" placeholder="글 검색" aria-label="글 검색" />
     <button type="submit">검색</button>
   </form>
+  <VisitorCount />
   <section class="side-box">
     <h2>최근 글</h2>
     <ul class="side-list">

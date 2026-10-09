@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, url } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, GOATCOUNTER_CODE, url } from '../consts';
 
 interface Props {
   title?: string;
@@ -23,6 +23,16 @@ const pageTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    {
+      GOATCOUNTER_CODE && (
+        <script
+          is:inline
+          data-goatcounter={`https://${GOATCOUNTER_CODE}.goatcounter.com/count`}
+          async
+          src="https://gc.zgo.at/count.js"
+        />
+      )
+    }
   </head>
   <body>
     <header class="site-header">
