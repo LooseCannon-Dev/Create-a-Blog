@@ -7,19 +7,30 @@ import { getPublishedPosts } from '../../posts';
 
 export async function getStaticPaths() {
   const posts = await getPublishedPosts();
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+  // 목록이 최신순이라 앞 글이 더 새 글(다음 글), 뒤 글이 더 오래된 글(이전 글)이다.
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
+  }));
 }
 
-const { post } = Astro.props;
+const { post, newer, older } = Astro.props;
 const { Content } = await render(post);
+// 읽는 시간: 코드 블록·기호·공백을 뺀 글자 수를 분당 500자로 나눈 값 (최소 1분)
+const textLength = (post.body ?? '')
+  .replace(/```[\s\S]*?```/g, '')
+  .replace(/[#>*_`|~\-\[\]()!]/g, '')
+  .replace(/\s+/g, '').length;
+const readingMinutes = Math.max(1, Math.round(textLength / 500));
 ---
 
-<Base title={post.data.title} description={post.data.description}>
+<Base title={post.data.title} description={post.data.description} image={post.data.image} type="article">
   <article>
     <header class="post-header">
       <h1>{post.data.title}</h1>
       <div class="meta">
         <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        <span>약 {readingMinutes}분</span>
         {post.data.tags.map((tag) => <a class="tag" href={url(`tags/${tag}/`)}>#{tag}</a>)}
       </div>
     </header>
@@ -28,5 +39,23 @@ const { Content } = await render(post);
       <Content />
     </div>
   </article>
+  {
+    (older || newer) && (
+      <nav class="post-nav" aria-label="이전 글과 다음 글">
+        {older && (
+          <a class="prev" href={url(`posts/${older.id}/`)}>
+            <span>← 이전 글</span>
+            {older.data.title}
+          </a>
+        )}
+        {newer && (
+          <a class="next" href={url(`posts/${newer.id}/`)}>
+            <span>다음 글 →</span>
+            {newer.data.title}
+          </a>
+        )}
+      </nav>
+    )
+  }
   <Comments />
 </Base>

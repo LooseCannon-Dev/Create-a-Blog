@@ -4,12 +4,29 @@ import { COMMENTS_REPO } from '../consts';
 
 <section class="comments">
   <h2>댓글</h2>
-  <script
-    is:inline
-    src="https://utteranc.es/client.js"
-    repo={COMMENTS_REPO}
-    issue-term="pathname"
-    theme="preferred-color-scheme"
-    crossorigin="anonymous"
-    async></script>
+  <div id="utterances"></div>
 </section>
+
+<script is:inline define:vars={{ repo: COMMENTS_REPO }}>
+  // 댓글 테마를 블로그 테마(전환 버튼 포함)에 맞춘다.
+  const currentTheme = () => {
+    const chosen = document.documentElement.dataset.theme;
+    const dark = chosen ? chosen === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    return dark ? 'github-dark' : 'github-light';
+  };
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.async = true;
+  script.crossOrigin = 'anonymous';
+  script.setAttribute('repo', repo);
+  script.setAttribute('issue-term', 'pathname');
+  script.setAttribute('theme', currentTheme());
+  document.getElementById('utterances').appendChild(script);
+
+  const applyTheme = () => {
+    const frame = document.querySelector('.utterances-frame');
+    frame?.contentWindow.postMessage({ type: 'set-theme', theme: currentTheme() }, 'https://utteranc.es');
+  };
+  window.addEventListener('themechange', applyTheme);
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+</script>
