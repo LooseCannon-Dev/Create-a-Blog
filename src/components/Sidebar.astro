@@ -1,0 +1,42 @@
+---
+import { formatDate, url } from '../consts';
+import { getPublishedPosts } from '../posts';
+
+const posts = await getPublishedPosts();
+const recent = posts.slice(0, 5);
+const counts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) counts.set(tag, (counts.get(tag) ?? 0) + 1);
+}
+const tags = [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'ko'));
+---
+
+<aside class="sidebar">
+  <form class="side-box search-form" action={url('search/')} method="get" role="search">
+    <input type="search" name="q" placeholder="글 검색" aria-label="글 검색" />
+    <button type="submit">검색</button>
+  </form>
+  <section class="side-box">
+    <h2>최근 글</h2>
+    <ul class="side-list">
+      {
+        recent.map((post) => (
+          <li>
+            <a href={url(`posts/${post.id}/`)}>{post.data.title}</a>
+            <span class="muted">{formatDate(post.data.date)}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  <section class="side-box">
+    <h2>태그</h2>
+    <ul class="tag-cloud">
+      {tags.map(([tag, count]) => (
+        <li>
+          <a class="tag" href={url(`tags/${tag}/`)}>#{tag} <span class="muted">({count})</span></a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</aside>

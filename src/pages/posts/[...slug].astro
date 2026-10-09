@@ -1,6 +1,7 @@
 ---
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import Comments from '../../components/Comments.astro';
 import { formatDate, url } from '../../consts';
 import { getPublishedPosts } from '../../posts';
 
@@ -22,8 +23,10 @@ const { Content } = await render(post);
         {post.data.tags.map((tag) => <a class="tag" href={url(`tags/${tag}/`)}>#{tag}</a>)}
       </div>
     </header>
+    {post.data.image && <img class="post-cover" src={url(post.data.image)} alt={post.data.imageAlt ?? ''} />}
     <div class="prose">
       <Content />
     </div>
   </article>
+  <Comments />
 </Base>

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Sidebar from '../components/Sidebar.astro';
 import { SITE_TITLE, SITE_DESCRIPTION, url } from '../consts';
 
 interface Props {
@@ -30,12 +31,16 @@ const pageTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
         <nav>
           <a href={url()}>글 목록</a>
           <a href={url('tags/')}>태그</a>
+          <a href={url('search/')}>검색</a>
         </nav>
       </div>
     </header>
-    <main class="container">
-      <slot />
-    </main>
+    <div class="container layout">
+      <main>
+        <slot />
+      </main>
+      <Sidebar />
+    </div>
     <footer class="site-footer">
       <div class="container">© {new Date().getFullYear()} {SITE_TITLE}</div>
     </footer>
