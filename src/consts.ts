@@ -9,6 +9,9 @@ export const GOATCOUNTER_CODE = 'loosecannon-dev';
 export const CATEGORIES = [
   { name: 'OmniTool', slug: 'omnitool' },
   { name: 'Code History Tracker', slug: 'code-history-tracker' },
+  { name: 'ReFinder', slug: 'refinder' },
+  { name: 'HumComposer', slug: 'humcomposer' },
+  { name: 'CommBench', slug: 'commbench' },
 ] as const;
 
 export function categorySlug(name: string) {
