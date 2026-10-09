@@ -1,0 +1,30 @@
+---
+import { url } from '../consts';
+
+interface Props {
+  // 목록 첫 페이지 경로 (예: 'categories/omnitool/'). 2쪽부터는 뒤에 '2/'처럼 붙는다.
+  base: string;
+  current: number;
+  last: number;
+}
+
+const { base, current, last } = Astro.props;
+const href = (n: number) => url(n === 1 ? base : `${base}${n}/`);
+const pages = Array.from({ length: last }, (_, i) => i + 1);
+---
+
+{
+  last > 1 && (
+    <nav class="pagination" aria-label="페이지">
+      {current > 1 ? <a href={href(current - 1)}>← 이전</a> : <span class="muted">← 이전</span>}
+      {pages.map((n) =>
+        n === current ? (
+          <span class="current" aria-current="page">{n}</span>
+        ) : (
+          <a href={href(n)}>{n}</a>
+        ),
+      )}
+      {current < last ? <a href={href(current + 1)}>다음 →</a> : <span class="muted">다음 →</span>}
+    </nav>
+  )
+}

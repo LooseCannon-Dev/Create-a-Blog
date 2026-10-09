@@ -7,6 +7,7 @@ export const COMMENTS_REPO = 'LooseCannon-Dev/Create-a-Blog';
 export const GOATCOUNTER_CODE = 'loosecannon-dev';
 // 툴별 카테고리. 글 머리말에 category: <name> 으로 지정한다. 새 툴은 여기에 한 줄 추가한다.
 export const CATEGORIES = [
+  { name: '공지', slug: 'notice' },
   { name: 'OmniTool', slug: 'omnitool' },
   { name: 'Code History Tracker', slug: 'code-history-tracker' },
   { name: 'ReFinder', slug: 'refinder' },
@@ -25,6 +26,9 @@ export function url(path = '') {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   return `${base}/${path.replace(/^\//, '')}`;
 }
+
+// 목록 한 페이지에 보여 줄 글 수
+export const PAGE_SIZE = 10;
 
 export function formatDate(date: Date) {
   return date.toLocaleDateString('ko-KR', {

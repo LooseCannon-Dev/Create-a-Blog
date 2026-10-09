@@ -25,6 +25,10 @@ const tags = [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 
   <section class="side-box">
     <h2>카테고리</h2>
     <ul class="category-list">
+      <li>
+        <a href={url()}>전체</a>
+        <span class="muted">{posts.length}</span>
+      </li>
       {
         categories.map((c) => (
           <li>
