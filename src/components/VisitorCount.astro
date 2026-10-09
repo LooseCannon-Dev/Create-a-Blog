@@ -1,0 +1,43 @@
+---
+import { GOATCOUNTER_CODE } from '../consts';
+---
+
+{
+  GOATCOUNTER_CODE && (
+    <section class="side-box visitor-box" hidden>
+      <h2>방문자</h2>
+      <dl class="visitor-stats">
+        <div>
+          <dt>전체</dt>
+          <dd data-visitor="total">-</dd>
+        </div>
+        <div>
+          <dt>이 페이지</dt>
+          <dd data-visitor="page">-</dd>
+        </div>
+      </dl>
+    </section>
+  )
+}
+
+{
+  GOATCOUNTER_CODE && (
+    <script is:inline define:vars={{ endpoint: `https://${GOATCOUNTER_CODE}.goatcounter.com/counter/` }}>
+      const box = document.querySelector('.visitor-box');
+      // 404는 아직 기록이 없는 경로라는 뜻이라 0으로 본다. 그 밖의 실패는 상자를 숨긴 채 둔다.
+      const load = (path) =>
+        fetch(`${endpoint}${encodeURIComponent(path)}.json`).then((r) => {
+          if (r.status === 404) return '0';
+          if (!r.ok) throw new Error(`${path}: ${r.status}`);
+          return r.json().then((d) => d.count);
+        });
+      Promise.all([load('TOTAL'), load(location.pathname)])
+        .then(([total, page]) => {
+          box.querySelector('[data-visitor="total"]').textContent = total;
+          box.querySelector('[data-visitor="page"]').textContent = page;
+          box.hidden = false;
+        })
+        .catch((err) => console.warn('방문자 수를 불러오지 못했습니다.', err));
+    </script>
+  )
+}

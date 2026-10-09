@@ -181,6 +181,24 @@ a:hover {
   font-size: 0.8125rem;
 }
 
+.visitor-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0;
+}
+
+.visitor-stats dt {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.visitor-stats dd {
+  margin: 0;
+  font-size: 1.375rem;
+  font-weight: 800;
+}
+
 .sidebar .tag-cloud {
   margin: 0;
   gap: 8px;
