@@ -1,0 +1,12 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION, GITHUB_URL, url } from '../consts';
+---
+
+<section class="profile-box">
+  <img class="profile-logo" src={url('images/logo.png')} alt="LC-DEV 로고" width="88" height="88" />
+  <div>
+    <h1 class="profile-name">{SITE_TITLE}</h1>
+    <p class="profile-intro">{SITE_DESCRIPTION}</p>
+    <a class="profile-link" href={GITHUB_URL} target="_blank" rel="noopener">GitHub 바로가기 →</a>
+  </div>
+</section>

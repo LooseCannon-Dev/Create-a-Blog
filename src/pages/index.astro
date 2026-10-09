@@ -1,13 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import PostList from '../components/PostList.astro';
-import { SITE_DESCRIPTION } from '../consts';
+import ProfileBox from '../components/ProfileBox.astro';
 import { getPublishedPosts } from '../posts';
 
 const posts = await getPublishedPosts();
 ---
 
 <Base>
-  <p class="intro">{SITE_DESCRIPTION}</p>
+  <ProfileBox />
   <PostList posts={posts} />
 </Base>

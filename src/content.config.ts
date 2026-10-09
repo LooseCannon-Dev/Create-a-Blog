@@ -10,6 +10,9 @@ const posts = defineCollection({
     date: z.coerce.date(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    // 썸네일 이미지 (public 기준 경로, 예: images/foo.png)
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
   }),
 });
 

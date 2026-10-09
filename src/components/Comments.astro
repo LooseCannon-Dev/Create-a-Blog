@@ -1,0 +1,15 @@
+---
+import { COMMENTS_REPO } from '../consts';
+---
+
+<section class="comments">
+  <h2>댓글</h2>
+  <script
+    is:inline
+    src="https://utteranc.es/client.js"
+    repo={COMMENTS_REPO}
+    issue-term="pathname"
+    theme="preferred-color-scheme"
+    crossorigin="anonymous"
+    async></script>
+</section>

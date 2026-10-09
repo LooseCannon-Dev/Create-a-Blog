@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { formatDate, url } from '../consts';
+import { DEFAULT_THUMBNAIL, formatDate, url } from '../consts';
 
 interface Props {
   posts: CollectionEntry<'posts'>[];
@@ -13,17 +13,22 @@ const { posts } = Astro.props;
 <ul class="post-list">
   {
     posts.map((post) => (
-      <li>
-        <a class="post-link" href={url(`posts/${post.id}/`)}>
-          <h2>{post.data.title}</h2>
-          <p>{post.data.description}</p>
-        </a>
-        <div class="meta">
-          <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-          {post.data.tags.map((tag) => (
-            <a class="tag" href={url(`tags/${tag}/`)}>#{tag}</a>
-          ))}
+      <li class="post-item">
+        <div class="post-text">
+          <a class="post-link" href={url(`posts/${post.id}/`)}>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+          </a>
+          <div class="meta">
+            <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+            {post.data.tags.map((tag) => (
+              <a class="tag" href={url(`tags/${tag}/`)}>#{tag}</a>
+            ))}
+          </div>
         </div>
+        <a class="post-thumb" href={url(`posts/${post.id}/`)} tabindex="-1" aria-hidden="true">
+          <img src={url(post.data.image ?? DEFAULT_THUMBNAIL)} alt="" loading="lazy" />
+        </a>
       </li>
     ))
   }
