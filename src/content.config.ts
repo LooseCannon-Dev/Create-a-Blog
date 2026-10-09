@@ -15,6 +15,8 @@ const posts = defineCollection({
     draft: z.boolean().default(false),
     // 카테고리 (consts.ts의 CATEGORIES 중 하나)
     category: z.enum(categoryNames).optional(),
+    // 카테고리 페이지 맨 위에 고정 (툴 소개글용)
+    pinned: z.boolean().default(false),
     // 썸네일 이미지 (public 기준 경로, 예: images/foo.png)
     image: z.string().optional(),
     imageAlt: z.string().optional(),
