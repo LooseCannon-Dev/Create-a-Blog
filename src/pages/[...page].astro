@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Base from '../layouts/Base.astro';
+import Pagination from '../components/Pagination.astro';
+import PostList from '../components/PostList.astro';
+import ProfileBox from '../components/ProfileBox.astro';
+import { PAGE_SIZE } from '../consts';
+import { getPublishedPosts } from '../posts';
+
+// 전체 글 목록. 첫 페이지는 '/', 다음부터는 '/2/', '/3/' ...
+export const getStaticPaths = (async ({ paginate }) => {
+  return paginate(await getPublishedPosts(), { pageSize: PAGE_SIZE });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<Base>
+  {page.currentPage === 1 && <ProfileBox />}
+  <PostList posts={page.data} />
+  <Pagination base="" current={page.currentPage} last={page.lastPage} />
+</Base>

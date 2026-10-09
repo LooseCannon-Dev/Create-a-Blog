@@ -1,0 +1,28 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Base from '../../../layouts/Base.astro';
+import Pagination from '../../../components/Pagination.astro';
+import PostList from '../../../components/PostList.astro';
+import { PAGE_SIZE } from '../../../consts';
+import { getPublishedPosts } from '../../../posts';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getPublishedPosts();
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+  return tags.flatMap((tag) =>
+    paginate(
+      posts.filter((post) => post.data.tags.includes(tag)),
+      { params: { tag }, pageSize: PAGE_SIZE },
+    ),
+  );
+}) satisfies GetStaticPaths;
+
+const { tag } = Astro.params;
+const { page } = Astro.props;
+---
+
+<Base title={`#${tag}`}>
+  <h1>#{tag}</h1>
+  <PostList posts={page.data} />
+  <Pagination base={`tags/${tag}/`} current={page.currentPage} last={page.lastPage} />
+</Base>

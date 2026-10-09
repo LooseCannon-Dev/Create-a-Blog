@@ -13,7 +13,7 @@ const { posts } = Astro.props;
 <ul class="post-list">
   {
     posts.map((post) => (
-      <li class="post-item">
+      <li class:list={['post-item', { pinned: post.data.pinned }]}>
         <div class="post-text">
           <a class="post-link" href={url(`posts/${post.id}/`)}>
             <h2>{post.data.title}</h2>
