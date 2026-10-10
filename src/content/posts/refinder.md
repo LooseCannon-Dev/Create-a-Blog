@@ -9,6 +9,8 @@ image: images/refinder/main.png
 imageAlt: ReFinder 메인 화면. 왼쪽 파일 목록, 가운데 서식이 그려진 문서, 오른쪽에 이 문서를 가리키는 문서 목록이 보인다
 ---
 
+<div class="video-embed"><iframe src="https://www.youtube.com/embed/k-t6EMMR-VY" title="ReFinder 소개 영상" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+
 **ReFinder**(리파인더)는 마크다운(.md) 문서를 모아 둔 폴더(보관함)를 열어 읽고, 고치고, 문서끼리 어떻게 이어져 있는지 보여 주는 Windows용 데스크톱 툴입니다.
 
 요즘은 Claude 같은 AI가 규칙이나 작업 기록을 마크다운 문서로 쌓아 두는 일이 많습니다.

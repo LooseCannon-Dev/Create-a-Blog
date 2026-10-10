@@ -19,6 +19,7 @@ const { Content } = await render(post);
 // 읽는 시간: 코드 블록·기호·공백을 뺀 글자 수를 분당 500자로 나눈 값 (최소 1분)
 const textLength = (post.body ?? '')
   .replace(/```[\s\S]*?```/g, '')
+  .replace(/<[^>]+>/g, '')
   .replace(/[#>*_`|~\-\[\]()!]/g, '')
   .replace(/\s+/g, '').length;
 const readingMinutes = Math.max(1, Math.round(textLength / 500));
