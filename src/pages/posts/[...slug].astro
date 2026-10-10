@@ -2,7 +2,7 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Comments from '../../components/Comments.astro';
-import { categorySlug, formatDate, thumbnailOf, url } from '../../consts';
+import { GOATCOUNTER_CODE, categorySlug, formatDate, thumbnailOf, url } from '../../consts';
 import { getPublishedPosts } from '../../posts';
 
 export async function getStaticPaths() {
@@ -32,6 +32,7 @@ const readingMinutes = Math.max(1, Math.round(textLength / 500));
       <div class="meta">
         <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
         <span>약 {readingMinutes}분</span>
+        {GOATCOUNTER_CODE && <span class="view-count" hidden>조회 <span data-views></span></span>}
         {post.data.category && (
           <a class="category" href={url(`categories/${categorySlug(post.data.category)}/`)}>{post.data.category}</a>
         )}
@@ -62,6 +63,26 @@ const readingMinutes = Math.max(1, Math.round(textLength / 500));
     )
   }
   <Comments />
+  {
+    GOATCOUNTER_CODE && (
+      <script is:inline define:vars={{ endpoint: `https://${GOATCOUNTER_CODE}.goatcounter.com/counter/` }}>
+        // 이 글의 조회수(GoatCounter 방문자 수). 404는 아직 기록이 없는 글이라 0으로 본다.
+        // 그 밖의 실패(접속 차단 등)는 숫자를 지어내지 않고 표시를 숨긴 채로 둔다.
+        const views = document.querySelector('.view-count');
+        fetch(`${endpoint}${encodeURIComponent(location.pathname)}.json`)
+          .then((r) => {
+            if (r.status === 404) return '0';
+            if (!r.ok) throw new Error(`${location.pathname}: ${r.status}`);
+            return r.json().then((d) => d.count);
+          })
+          .then((count) => {
+            views.querySelector('[data-views]').textContent = count;
+            views.hidden = false;
+          })
+          .catch((err) => console.warn('조회수를 불러오지 못했습니다.', err));
+      </script>
+    )
+  }
   <dialog class="image-viewer" aria-label="사진 크게 보기">
     <img alt="" />
   </dialog>
