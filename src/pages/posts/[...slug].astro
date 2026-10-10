@@ -2,7 +2,7 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Comments from '../../components/Comments.astro';
-import { categorySlug, formatDate, url } from '../../consts';
+import { categorySlug, formatDate, thumbnailOf, url } from '../../consts';
 import { getPublishedPosts } from '../../posts';
 
 export async function getStaticPaths() {
@@ -24,7 +24,7 @@ const textLength = (post.body ?? '')
 const readingMinutes = Math.max(1, Math.round(textLength / 500));
 ---
 
-<Base title={post.data.title} description={post.data.description} image={post.data.image} type="article">
+<Base title={post.data.title} description={post.data.description} image={thumbnailOf(post.data)} type="article">
   <article>
     <header class="post-header">
       <h1>{post.data.title}</h1>

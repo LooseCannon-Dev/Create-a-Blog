@@ -6,10 +6,11 @@ export const COMMENTS_REPO = 'LooseCannon-Dev/Create-a-Blog';
 // GoatCounter 사이트 코드 (https://<코드>.goatcounter.com). 비워 두면 방문자 수 기능이 꺼진다.
 export const GOATCOUNTER_CODE = 'loosecannon-dev';
 // 툴별 카테고리. 글 머리말에 category: <name> 으로 지정한다. 새 툴은 여기에 한 줄 추가한다.
+// thumbnail을 넣으면 그 카테고리에서 image가 없는 글의 썸네일로 쓴다 (public 기준 경로).
 export const CATEGORIES = [
   { name: '공지', slug: 'notice' },
   { name: 'OmniTool', slug: 'omnitool' },
-  { name: 'Code History Tracker', slug: 'code-history-tracker' },
+  { name: 'Code History Tracker', slug: 'code-history-tracker', thumbnail: 'images/cht/icon.png' },
   { name: 'ReFinder', slug: 'refinder' },
   { name: 'HumComposer', slug: 'humcomposer' },
   { name: 'CommBench', slug: 'commbench' },
@@ -20,6 +21,13 @@ export function categorySlug(name: string) {
 }
 // 글에 image가 없을 때 쓰는 기본 썸네일 (public 기준 경로)
 export const DEFAULT_THUMBNAIL = 'images/logo.png';
+
+// 글 썸네일: 글의 image → 카테고리 thumbnail → 기본 로고 순으로 정한다.
+export function thumbnailOf(data: { image?: string; category?: string }) {
+  const category = CATEGORIES.find((c) => c.name === data.category);
+  const categoryThumb = category && 'thumbnail' in category ? category.thumbnail : undefined;
+  return data.image ?? categoryThumb ?? DEFAULT_THUMBNAIL;
+}
 
 // base 경로(/Create-a-Blog)를 붙인 내부 링크를 만든다.
 export function url(path = '') {

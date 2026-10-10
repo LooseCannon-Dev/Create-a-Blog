@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { DEFAULT_THUMBNAIL, categorySlug, formatDate, url } from '../consts';
+import { categorySlug, formatDate, thumbnailOf, url } from '../consts';
 
 interface Props {
   posts: CollectionEntry<'posts'>[];
@@ -30,7 +30,7 @@ const { posts } = Astro.props;
           </div>
         </div>
         <a class="post-thumb" href={url(`posts/${post.id}/`)} tabindex="-1" aria-hidden="true">
-          <img src={url(post.data.image ?? DEFAULT_THUMBNAIL)} alt="" loading="lazy" />
+          <img src={url(thumbnailOf(post.data))} alt="" loading="lazy" />
         </a>
       </li>
     ))
