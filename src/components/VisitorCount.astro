@@ -15,10 +15,6 @@ import { GOATCOUNTER_CODE } from '../consts';
           <dt>전체</dt>
           <dd data-visitor="total">-</dd>
         </div>
-        <div>
-          <dt>이 페이지</dt>
-          <dd data-visitor="page">-</dd>
-        </div>
       </dl>
     </section>
   )
@@ -38,11 +34,10 @@ import { GOATCOUNTER_CODE } from '../consts';
           if (!r.ok) throw new Error(`${path}: ${r.status}`);
           return r.json().then((d) => d.count);
         });
-      Promise.all([load('TOTAL', `?start=${today}`), load('TOTAL'), load(location.pathname)])
-        .then(([todayCount, total, page]) => {
+      Promise.all([load('TOTAL', `?start=${today}`), load('TOTAL')])
+        .then(([todayCount, total]) => {
           box.querySelector('[data-visitor="today"]').textContent = todayCount;
           box.querySelector('[data-visitor="total"]').textContent = total;
-          box.querySelector('[data-visitor="page"]').textContent = page;
         })
         .catch((err) => console.warn('방문자 수를 불러오지 못했습니다.', err));
     </script>
