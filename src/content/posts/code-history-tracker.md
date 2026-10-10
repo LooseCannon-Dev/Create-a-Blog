@@ -9,6 +9,8 @@ image: images/cht/main.png
 imageAlt: Code History Tracker 메인 화면. 위쪽 타임라인에서 두 시점을 골라 파일을 좌우로 비교하는 모습
 ---
 
+<div class="video-embed"><iframe src="https://www.youtube.com/embed/Y-RGiYOy7uo" title="Code History Tracker 소개 영상" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+
 **Code History Tracker**는 프로젝트 폴더가 시간에 따라 어떻게 바뀌었는지 기록해 두는 Windows용 데스크톱 툴입니다.
 기록해 둔 시점끼리 비교하고, 필요하면 예전 상태로 되돌릴 수 있습니다.
 

@@ -12,6 +12,7 @@ export const GET: APIRoute = async () => {
     date: post.data.date.toISOString(),
     body: (post.body ?? '')
       .replace(/```[\s\S]*?```/g, ' ')
+      .replace(/<[^>]+>/g, ' ')
       .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
       .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
       .replace(/[#>*_`|~-]/g, ' ')
