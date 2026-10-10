@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { categorySlug, formatDate, thumbnailOf, url } from '../consts';
+import { GOATCOUNTER_CODE, categorySlug, formatDate, thumbnailOf, url } from '../consts';
 
 interface Props {
   posts: CollectionEntry<'posts'>[];
@@ -21,6 +21,11 @@ const { posts } = Astro.props;
           </a>
           <div class="meta">
             <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+            {GOATCOUNTER_CODE && (
+              <span class="view-count" data-views-path={url(`posts/${post.id}/`)} hidden>
+                조회 <span data-views></span>
+              </span>
+            )}
             {post.data.category && (
               <a class="category" href={url(`categories/${categorySlug(post.data.category)}/`)}>{post.data.category}</a>
             )}
