@@ -8,6 +8,10 @@ import { GOATCOUNTER_CODE } from '../consts';
       <h2>방문자</h2>
       <dl class="visitor-stats">
         <div>
+          <dt>오늘</dt>
+          <dd data-visitor="today">-</dd>
+        </div>
+        <div>
           <dt>전체</dt>
           <dd data-visitor="total">-</dd>
         </div>
@@ -26,14 +30,17 @@ import { GOATCOUNTER_CODE } from '../consts';
       const box = document.querySelector('.visitor-box');
       // 상자는 처음부터 보여 두고 숫자만 채운다. 늦게 나타나면 아래 상자들이 밀려 화면이 흔들린다.
       // 404는 아직 기록이 없는 경로라는 뜻이라 0으로 본다. 그 밖의 실패는 '-'를 그대로 둔다.
-      const load = (path) =>
-        fetch(`${endpoint}${encodeURIComponent(path)}.json`).then((r) => {
+      // '오늘'은 GoatCounter가 날짜를 UTC로 받으므로 한국 시간 오전 9시에 0부터 다시 센다.
+      const today = new Date().toISOString().slice(0, 10);
+      const load = (path, query = '') =>
+        fetch(`${endpoint}${encodeURIComponent(path)}.json${query}`).then((r) => {
           if (r.status === 404) return '0';
           if (!r.ok) throw new Error(`${path}: ${r.status}`);
           return r.json().then((d) => d.count);
         });
-      Promise.all([load('TOTAL'), load(location.pathname)])
-        .then(([total, page]) => {
+      Promise.all([load('TOTAL', `?start=${today}`), load('TOTAL'), load(location.pathname)])
+        .then(([todayCount, total, page]) => {
+          box.querySelector('[data-visitor="today"]').textContent = todayCount;
           box.querySelector('[data-visitor="total"]').textContent = total;
           box.querySelector('[data-visitor="page"]').textContent = page;
         })
