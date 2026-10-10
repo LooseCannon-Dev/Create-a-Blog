@@ -95,8 +95,13 @@ imageAlt: ReFinder 메인 화면. 왼쪽 파일 목록, 가운데 서식이 그�
 
 ![Claude 탭의 '메모리에 없는 일'. 대화에서 고른 답 '배터리 절약 모드에서는 새로 고침 끄기'가 메모리에 없다고 알려 준다](/Create-a-Blog/images/refinder/claude-not-in-memory.png)
 
-- **링크 도구:** Claude가 보관함의 링크를 따라 주변 문서를 한 번에 훑는 도구를 함께 설치합니다. 리파인더에서 연 보관함만 보고, 파일은 읽기만 합니다. Codex(ChatGPT)와 Gemini CLI에도 등록할 수 있습니다.
-- **코드를 고치기 전에:** 링크 도구가 코드 폴더도 보고, 사용자가 직접 손댄 줄을 AI에게 알려 줍니다. AI가 그 줄을 요청 없이 바꾸지 않게 돕습니다.
+- **MCP 도구:** 리파인더를 설치하면 AI가 부를 수 있는 MCP 도구가 함께 설치됩니다. Claude Code에 아래 명령으로 한 번 등록하면, Claude가 보관함의 링크를 따라 주변 문서를 한 번에 훑고, 메모리를 고치기 전에는 사용자가 리파인더에서 직접 고친 문서를, 코드를 고치기 전에는 사용자가 손댄 줄을 확인합니다. 도구는 파일을 읽기만 하고 고치지 않습니다. Codex · ChatGPT 데스크톱 앱과 Gemini CLI에도 MCP로 등록할 수 있습니다.
+
+  ```powershell
+  claude mcp add refinder -s user -- "$env:LOCALAPPDATA\Programs\ReFinder\mcp\ReFinder.Mcp.exe"
+  ```
+
+  한 번 등록하면 모든 프로젝트에서 쓸 수 있습니다. 등록한 뒤에는 새 대화를 열어야 도구가 붙습니다.
 
 ## Code History Tracker와 함께 쓰기
 
