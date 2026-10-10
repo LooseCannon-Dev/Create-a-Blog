@@ -65,7 +65,7 @@ imageAlt: ReFinder 메인 화면. 왼쪽 파일 목록, 가운데 서식이 그�
 
 ![형식 검사 탭. design-tokens.md의 name이 파일 이름과 달라 걸린 이유를 설명하고, 해당 줄을 표시한다](/Create-a-Blog/images/refinder/format-check.png)
 
-- **낡은 기록 찾기:** 문서에 적힌 파일 · 함수 이름이 연결한 코드 폴더에 아직 있는지, 적힌 버전 번호가 실제로 나온 번호와 맞는지 확인합니다. 이름이 없으면 코드에서 가장 가까운 이름도 알려 줍니다.
+- **낡은 기록 찾기:** 문서에 적힌 파일 · 함수 이름이 연결한 코드 폴더에 아직 있는지, 적힌 버전 번호가 실제로 나온 번호와 맞는지 확인합니다. `ForecastCache.Refresh`처럼 점으로 이은 이름은 앞쪽 이름까지 확인하고, 이름이 없으면 코드에서 가장 가까운 이름도 알려 줍니다.
 
 ![낡은 기록 탭. 문서에 적힌 ForecastCache.Refresh가 코드에 없고, 가장 가까운 이름 ForecastStore를 알려 준다](/Create-a-Blog/images/refinder/stale-records.png)
 
