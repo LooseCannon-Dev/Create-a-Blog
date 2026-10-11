@@ -13,7 +13,6 @@ export const CATEGORIES = [
   { name: 'Code History Tracker', slug: 'code-history-tracker', thumbnail: 'images/cht/icon.png' },
   { name: 'ReFinder', slug: 'refinder', thumbnail: 'images/refinder/icon.png' },
   { name: 'HumComposer', slug: 'humcomposer' },
-  { name: 'CommBench', slug: 'commbench' },
 ] as const;
 
 export function categorySlug(name: string) {
