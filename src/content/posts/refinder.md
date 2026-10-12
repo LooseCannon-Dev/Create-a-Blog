@@ -77,9 +77,11 @@ imageAlt: ReFinder 메인 화면. 왼쪽 파일 목록, 가운데 서식이 그�
 
 ![낡은 기록 탭. 문서에 적힌 ForecastCache.Refresh가 코드에 없고, 가장 가까운 이름 ForecastStore를 알려 준다](/Create-a-Blog/images/refinder/stale-records.png)
 
-- **비슷한 문서 찾기:** 내용이 많이 겹치는 문서 짝을 찾아 나란히 보여 줍니다. AI가 있던 문서를 고치지 않고 새로 만든 경우를 잡아냅니다.
+- **비슷한 문서 찾기:** 내용이 많이 겹치는 문서 짝을 찾아 나란히 보여 줍니다. AI가 있던 문서를 고치지 않고 새로 만든 경우를 잡아냅니다. 켜 두면 낱말은 달라도 같은 내용을 다른 말로 적은 짝도 **'뜻이 비슷함'**으로 따로 보여 줍니다. 프로그램에 든 언어 모델로 이 PC 안에서만 계산하고 인터넷은 쓰지 않습니다.
 
 ![비슷한 문서 탭. 72% 겹치는 두 문서를 나란히 놓고 겹치는 부분을 칠해 보여 준다](/Create-a-Blog/images/refinder/similar-docs.png)
+
+![비슷한 문서의 '뜻이 비슷함'. 밤 알림 규칙을 다른 말로 적은 night-quiet와 rain-alert 두 문서를 뜻 비슷함 76%로 나란히 보여 준다](/Create-a-Blog/images/refinder/similar-meaning.png)
 
 틀릴 수 있는 판단은 결함처럼 단정하지 않고 '확인 필요'로 보여 주며, 프로그램이 스스로 고치지 않습니다.
 
@@ -89,17 +91,19 @@ imageAlt: ReFinder 메인 화면. 왼쪽 파일 목록, 가운데 서식이 그�
 
 ![변경 기록 비교 화면. Claude가 고친 내용 옆에 '이 고침 바로 앞에 사용자가 한 말'이 말풍선으로 나온다](/Create-a-Blog/images/refinder/history-user-message.png)
 
-- **Claude 탭:** Claude를 위한 검토 화면을 네 가지로 나눠 보여 줍니다.
+- **AI Agent 탭:** Claude를 위한 검토 화면을 네 가지로 나눠 보여 줍니다. (V1.1.8에서 'Claude 탭'의 이름이 바뀌었습니다.)
   - **세션 시작에 받는 글:** Claude가 세션을 시작할 때 받는 규칙과 메모리를 받는 차례대로 모아 보여 줍니다. MEMORY.md가 Claude에게 다 가는지(앞 200줄 · 25,000자)는 편집할 때 상태 줄에서도 보입니다.
   - **읽힌 횟수:** 문서마다 Claude가 최근 30일 동안 몇 번 읽었는지 세고, 한 번도 열리지 않은 문서를 따로 모읍니다.
   - **재발:** 규칙을 만든 뒤에도 사용자가 같은 지적을 다시 한 횟수를 셉니다.
-  - **메모리에 없는 일:** 대화에서 정했는데 메모리 어느 문서에도 적히지 않은 일을 찾아 줍니다.
+  - **메모리에 없는 일:** 대화에서 정했는데 메모리 어느 문서에도 적히지 않은 일을 찾아 줍니다. AI가 "~할까요?" 처럼 묻거나 추천한 말에 "응 그렇게 해줘" 처럼 답해 **말로 정한 결정**도 찾아, AI가 쓴 글과 사용자의 대답을 함께 보여 줍니다. Claude 메모리뿐 아니라 **Codex · Gemini CLI의 메모리 폴더**에서도 씁니다.
 
 ![Claude 탭의 '세션 시작에 받는 글'. 사용자 규칙, 프로젝트 CLAUDE.md, MEMORY.md가 Claude가 받는 차례대로 모여 있다](/Create-a-Blog/images/refinder/claude-session-start.png)
 
 ![Claude 탭의 '재발'. 지우기 전에 묻기로 한 규칙을 만든 뒤에도 사용자가 같은 말을 다시 한 기록이 나온다](/Create-a-Blog/images/refinder/claude-recurrence.png)
 
 ![Claude 탭의 '메모리에 없는 일'. 대화에서 고른 답 '배터리 절약 모드에서는 새로 고침 끄기'가 메모리에 없다고 알려 준다](/Create-a-Blog/images/refinder/claude-not-in-memory.png)
+
+![AI Agent 탭의 '메모리에 없는 일'. 비 알림 기준을 50%로 낮출지 묻는 말에 '응 50%로 낮춰줘'라고 답했지만 메모리에는 아직 적히지 않아, AI가 쓴 글과 사용자의 대답을 함께 보여 준다](/Create-a-Blog/images/refinder/spoken-decision.png)
 
 - **MCP 도구:** 리파인더를 설치하면 AI가 부를 수 있는 MCP 도구가 함께 설치됩니다. Claude Code에 아래 명령으로 한 번 등록하면, Claude가 보관함의 링크를 따라 주변 문서를 한 번에 훑고, 메모리를 고치기 전에는 사용자가 리파인더에서 직접 고친 문서를, 코드를 고치기 전에는 사용자가 손댄 줄을 확인합니다. 도구는 파일을 읽기만 하고 고치지 않습니다. Codex · ChatGPT 데스크톱 앱과 Gemini CLI에도 MCP로 등록할 수 있습니다.
 
