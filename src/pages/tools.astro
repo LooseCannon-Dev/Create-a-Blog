@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import { CATEGORIES, formatDate, url } from '../consts';
+import { getPublishedPosts, versionOf } from '../posts';
+
+const posts = await getPublishedPosts();
+// 공지를 뺀 카테고리마다 카드 하나. 소개글(pinned)이 없으면 '공개 준비 중'으로 보여 준다.
+const tools = CATEGORIES.filter((c) => c.name !== '공지').map((c) => {
+  const mine = posts.filter((post) => post.data.category === c.name);
+  const latest = mine.find((post) => versionOf(post.data.title));
+  return {
+    name: c.name,
+    slug: c.slug,
+    icon: 'thumbnail' in c ? c.thumbnail : undefined,
+    releases: 'releases' in c ? c.releases : undefined,
+    intro: mine.find((post) => post.data.pinned),
+    version: latest && versionOf(latest.data.title),
+    date: latest?.data.date,
+  };
+});
+---
+
+<Base title="툴 모아보기" description="직접 만든 Windows 툴을 한곳에 모았습니다.">
+  <h1>툴 모아보기</h1>
+  <p class="muted tools-intro">직접 만든 Windows 툴을 한곳에 모았습니다.</p>
+  <ul class="tool-grid">
+    {
+      tools.map((t) => (
+        <li class:list={['tool-card', { soon: !t.intro }]}>
+          <div class="tool-head">
+            {t.icon ? (
+              <img src={url(t.icon)} alt="" width="56" height="56" />
+            ) : (
+              <span class="tool-icon-blank" aria-hidden="true">{t.name[0]}</span>
+            )}
+            <div>
+              <h2>{t.name}</h2>
+              <span class="tool-version">
+                {t.version && t.date ? `최신 ${t.version} · ${formatDate(t.date)}` : '공개 준비 중'}
+              </span>
+            </div>
+          </div>
+          <p>{t.intro ? t.intro.data.description : '소개글을 준비하고 있습니다.'}</p>
+          <div class="tool-actions">
+            {t.releases && (
+              <a class="button" href={t.releases} target="_blank" rel="noopener">
+                내려받기
+              </a>
+            )}
+            {t.intro && <a href={url(`posts/${t.intro.id}/`)}>소개글 보기</a>}
+            <a href={url(`categories/${t.slug}/`)}>업데이트 글</a>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

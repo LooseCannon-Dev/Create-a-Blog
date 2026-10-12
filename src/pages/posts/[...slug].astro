@@ -15,7 +15,10 @@ export async function getStaticPaths() {
 }
 
 const { post, newer, older } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+// 글 목차: 소제목(##, ###)이 5개 이상인 긴 글에만 보여 준다.
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const showToc = toc.length >= 5;
 // 읽는 시간: 코드 블록·기호·공백을 뺀 글자 수를 분당 500자로 나눈 값 (최소 1분)
 const textLength = (post.body ?? '')
   .replace(/```[\s\S]*?```/g, '')
@@ -40,6 +43,20 @@ const readingMinutes = Math.max(1, Math.round(textLength / 500));
       </div>
     </header>
     {post.data.image && <img class="post-cover" src={url(post.data.image)} alt={post.data.imageAlt ?? ''} />}
+    {
+      showToc && (
+        <details class="toc toc-inline">
+          <summary>목차</summary>
+          <ul>
+            {toc.map((h) => (
+              <li class={`toc-depth-${h.depth}`}>
+                <a href={`#${h.slug}`}>{h.text}</a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )
+    }
     <div class="prose">
       <Content />
     </div>
@@ -63,6 +80,20 @@ const readingMinutes = Math.max(1, Math.round(textLength / 500));
     )
   }
   <Comments />
+  {
+    showToc && (
+      <nav class="side-box toc toc-side" slot="side" aria-label="목차">
+        <h2>목차</h2>
+        <ul>
+          {toc.map((h) => (
+            <li class={`toc-depth-${h.depth}`}>
+              <a href={`#${h.slug}`}>{h.text}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
   <dialog class="image-viewer" aria-label="사진 크게 보기">
     <img alt="" />
   </dialog>
@@ -79,5 +110,28 @@ const readingMinutes = Math.max(1, Math.round(textLength / 500));
       });
     });
     viewer.addEventListener('click', () => viewer.close());
+
+    // 본문 코드 블록 오른쪽 위에 '복사' 버튼을 붙인다.
+    document.querySelectorAll('.prose pre').forEach((pre) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'code-block';
+      pre.replaceWith(wrap);
+      wrap.append(pre);
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'copy-code';
+      button.textContent = '복사';
+      wrap.append(button);
+      button.addEventListener('click', () => {
+        navigator.clipboard
+          .writeText(pre.innerText.replace(/\n$/, ''))
+          .then(() => (button.textContent = '복사됨'))
+          .catch((err) => {
+            console.warn('코드를 복사하지 못했습니다.', err);
+            button.textContent = '복사 실패';
+          })
+          .finally(() => setTimeout(() => (button.textContent = '복사'), 1500));
+      });
+    });
   </script>
 </Base>
