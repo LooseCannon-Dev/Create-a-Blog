@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, GOATCOUNTER_CODE, DEFAULT_THUMBNAIL, DONATE_URL, url } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, GOATCOUNTER_CODE, DEFAULT_THUMBNAIL, DONATE_LINKS, url } from '../consts';
 
 interface Props {
   title?: string;
@@ -86,7 +86,9 @@ const imageUrl = new URL(url(image), Astro.site);
         <span>© {new Date().getFullYear()} {SITE_TITLE}. All rights reserved.</span>
         <div class="footer-links">
           <a href={url('rss.xml')}>RSS 구독</a>
-          {DONATE_URL && <a class="button donate" href={DONATE_URL} target="_blank" rel="noopener">☕ 후원하기</a>}
+          {DONATE_LINKS.map((link) => (
+            <a class="button donate" href={link.url} target="_blank" rel="noopener">{link.label}</a>
+          ))}
         </div>
       </div>
     </footer>
