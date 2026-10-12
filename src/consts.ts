@@ -5,8 +5,10 @@ export const GITHUB_URL = 'https://github.com/LooseCannon-Dev';
 export const COMMENTS_REPO = 'LooseCannon-Dev/Create-a-Blog';
 // GoatCounter 사이트 코드 (https://<코드>.goatcounter.com). 비워 두면 방문자 수 기능이 꺼진다.
 export const GOATCOUNTER_CODE = 'loosecannon-dev';
-// 후원 링크 주소. 비워 두면 아래쪽(footer)의 '후원하기' 버튼이 보이지 않는다.
-export const DONATE_URL = '';
+// 아래쪽(footer)의 후원 버튼. url을 비워 두면 그 버튼은 보이지 않는다.
+export const DONATE_LINKS = [
+  { label: '☕ Buy Me a Coffee', url: 'https://buymeacoffee.com/loosecannon_dev' },
+].filter((link) => link.url);
 // 툴별 카테고리. 글 머리말에 category: <name> 으로 지정한다. 새 툴은 여기에 한 줄 추가한다.
 // thumbnail을 넣으면 그 카테고리에서 image가 없는 글의 썸네일로 쓴다 (public 기준 경로).
 // releases를 넣으면 툴 모아보기 페이지에 '내려받기' 버튼이 생긴다. 공지 외 카테고리는 툴 모아보기에 카드로 나온다.
