@@ -8,7 +8,6 @@ export const GOATCOUNTER_CODE = 'loosecannon-dev';
 // 아래쪽(footer)의 후원 버튼. url을 비워 두면 그 버튼은 보이지 않는다.
 export const DONATE_LINKS = [
   { label: '☕ Buy Me a Coffee', url: 'https://buymeacoffee.com/loosecannon_dev' },
-  { label: '토스로 후원', url: '' },
 ].filter((link) => link.url);
 // 툴별 카테고리. 글 머리말에 category: <name> 으로 지정한다. 새 툴은 여기에 한 줄 추가한다.
 // thumbnail을 넣으면 그 카테고리에서 image가 없는 글의 썸네일로 쓴다 (public 기준 경로).
