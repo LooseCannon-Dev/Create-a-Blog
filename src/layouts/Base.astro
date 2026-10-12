@@ -63,6 +63,7 @@ const imageUrl = new URL(url(image), Astro.site);
         <a class="site-title" href={url()}>{SITE_TITLE}</a>
         <nav>
           <a href={url()}>글 목록</a>
+          <a href={url('tools/')}>툴</a>
           <a href={url('tags/')}>태그</a>
           <a href={url('search/')}>검색</a>
           <button class="theme-toggle" type="button" aria-label="다크 모드 전환" title="다크 모드 전환">

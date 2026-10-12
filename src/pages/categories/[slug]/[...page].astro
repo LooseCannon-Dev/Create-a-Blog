@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import Base from '../../../layouts/Base.astro';
 import Pagination from '../../../components/Pagination.astro';
 import PostList from '../../../components/PostList.astro';
+import VersionTimeline from '../../../components/VersionTimeline.astro';
 import { CATEGORIES, PAGE_SIZE } from '../../../consts';
 import { getPublishedPosts } from '../../../posts';
 
@@ -15,17 +16,18 @@ export const getStaticPaths = (async ({ paginate }) => {
       posts
         .filter((post) => post.data.category === c.name)
         .sort((a, b) => Number(b.data.pinned) - Number(a.data.pinned)),
-      { params: { slug: c.slug }, props: { name: c.name }, pageSize: PAGE_SIZE },
+      { params: { slug: c.slug }, props: { name: c.name, all: posts.filter((post) => post.data.category === c.name) }, pageSize: PAGE_SIZE },
     ),
   );
 }) satisfies GetStaticPaths;
 
 const { slug } = Astro.params;
-const { name, page } = Astro.props;
+const { name, all, page } = Astro.props;
 ---
 
 <Base title={name}>
   <h1>{name}</h1>
+  {page.currentPage === 1 && <VersionTimeline posts={all} />}
   <PostList posts={page.data} />
   <Pagination base={`categories/${slug}/`} current={page.currentPage} last={page.lastPage} />
 </Base>

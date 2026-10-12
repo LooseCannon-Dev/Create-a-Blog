@@ -11,6 +11,7 @@ export const GET: APIRoute = async ({ site }) => {
   const entries = [
     { loc: abs(''), lastmod: posts[0]?.data.date },
     { loc: abs('tags/') },
+    { loc: abs('tools/') },
     ...CATEGORIES.map((c) => ({ loc: abs(`categories/${c.slug}/`) })),
     ...tags.map((tag) => ({ loc: abs(`tags/${tag}/`) })),
     ...posts.map((post) => ({ loc: abs(`posts/${post.id}/`), lastmod: post.data.date })),

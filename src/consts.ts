@@ -9,11 +9,22 @@ export const GOATCOUNTER_CODE = 'loosecannon-dev';
 export const DONATE_URL = '';
 // 툴별 카테고리. 글 머리말에 category: <name> 으로 지정한다. 새 툴은 여기에 한 줄 추가한다.
 // thumbnail을 넣으면 그 카테고리에서 image가 없는 글의 썸네일로 쓴다 (public 기준 경로).
+// releases를 넣으면 툴 모아보기 페이지에 '내려받기' 버튼이 생긴다. 공지 외 카테고리는 툴 모아보기에 카드로 나온다.
 export const CATEGORIES = [
   { name: '공지', slug: 'notice' },
   { name: 'OmniTool', slug: 'omnitool' },
-  { name: 'Code History Tracker', slug: 'code-history-tracker', thumbnail: 'images/cht/icon.png' },
-  { name: 'ReFinder', slug: 'refinder', thumbnail: 'images/refinder/icon.png' },
+  {
+    name: 'Code History Tracker',
+    slug: 'code-history-tracker',
+    thumbnail: 'images/cht/icon.png',
+    releases: 'https://github.com/LooseCannon-Dev/CodeHistoryTracker-releases/releases/latest',
+  },
+  {
+    name: 'ReFinder',
+    slug: 'refinder',
+    thumbnail: 'images/refinder/icon.png',
+    releases: 'https://github.com/LooseCannon-Dev/ReFinder-releases/releases/latest',
+  },
   { name: 'HumComposer', slug: 'humcomposer' },
 ] as const;
 

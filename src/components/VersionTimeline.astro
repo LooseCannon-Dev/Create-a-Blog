@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { url } from '../consts';
+import { versionOf } from '../posts';
+
+interface Props {
+  // 한 카테고리의 글 (최신순)
+  posts: CollectionEntry<'posts'>[];
+}
+
+// 제목에 버전이 있는 업데이트 글만 골라 오래된 것부터 한 줄로 늘어놓는다. 맨 오른쪽이 최신 버전이다.
+const versions = Astro.props.posts
+  .filter((post) => versionOf(post.data.title))
+  .map((post) => ({ id: post.id, version: versionOf(post.data.title)!, date: post.data.date }))
+  .reverse();
+const monthDay = (d: Date) => `${d.getUTCMonth() + 1}.${d.getUTCDate()}`;
+---
+
+{
+  versions.length > 0 && (
+    <section class="timeline" aria-label="버전 흐름">
+      <div class="timeline-head">
+        <strong>버전 흐름</strong>
+        <span class="muted">{versions.length}개 버전 · 누르면 그 버전 글로 이동</span>
+      </div>
+      <ol class="timeline-track">
+        {versions.map((x, i) => (
+          <li class:list={{ latest: i === versions.length - 1 }}>
+            <a href={url(`posts/${x.id}/`)} title={`${x.version} 업데이트`}>
+              <span class="dot" />
+              <span class="v">{x.version.slice(1)}</span>
+              <span class="d">{monthDay(x.date)}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <script is:inline>
+        // 버전이 많아 옆으로 넘겨야 할 때는 최신 버전이 보이도록 오른쪽 끝에서 시작한다.
+        document.querySelectorAll('.timeline-track').forEach((t) => (t.scrollLeft = t.scrollWidth));
+      </script>
+    </section>
+  )
+}
