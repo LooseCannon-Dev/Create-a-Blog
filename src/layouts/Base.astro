@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, GOATCOUNTER_CODE, DEFAULT_THUMBNAIL, url } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, GOATCOUNTER_CODE, DEFAULT_THUMBNAIL, DONATE_URL, url } from '../consts';
 
 interface Props {
   title?: string;
@@ -76,14 +76,28 @@ const imageUrl = new URL(url(image), Astro.site);
       <main>
         <slot />
       </main>
-      <Sidebar />
+      <Sidebar>
+        <slot name="side" slot="side" />
+      </Sidebar>
     </div>
     <footer class="site-footer">
       <div class="container footer-inner">
-        <span>© {new Date().getFullYear()} {SITE_TITLE}</span>
-        <a href={url('rss.xml')}>RSS 구독</a>
+        <span>© {new Date().getFullYear()} {SITE_TITLE}. All rights reserved.</span>
+        <div class="footer-links">
+          <a href={url('rss.xml')}>RSS 구독</a>
+          {DONATE_URL && <a class="button donate" href={DONATE_URL} target="_blank" rel="noopener">☕ 후원하기</a>}
+        </div>
       </div>
     </footer>
+    <button class="to-top" type="button" aria-label="맨 위로" title="맨 위로" hidden>↑</button>
+    <script is:inline>
+      // 화면 한 장 넘게 내려가면 '맨 위로' 버튼을 보여 준다.
+      const toTop = document.querySelector('.to-top');
+      const updateToTop = () => (toTop.hidden = window.scrollY < window.innerHeight);
+      window.addEventListener('scroll', updateToTop, { passive: true });
+      updateToTop();
+      toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    </script>
     <script is:inline>
       document.querySelector('.theme-toggle').addEventListener('click', () => {
         const root = document.documentElement;

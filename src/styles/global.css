@@ -317,7 +317,8 @@ a:hover {
 
 .site-footer {
   border-top: 1px solid var(--border);
-  padding: 24px 0;
+  /* 아래쪽은 '맨 위로' 버튼이 후원 버튼을 가리지 않을 만큼 띄운다 */
+  padding: 24px 0 80px;
   color: var(--muted);
   font-size: 0.875rem;
 }
@@ -654,4 +655,130 @@ a:hover {
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+/* 글 목차: 넓은 화면은 사이드바 맨 아래에 붙어 따라오고, 좁은 화면은 글 위에 접이식으로 보인다. */
+.layout > .sidebar {
+  align-self: stretch;
+  align-content: start;
+}
+
+.toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.toc a {
+  color: var(--fg);
+}
+
+.toc a:hover {
+  color: var(--accent);
+}
+
+.toc .toc-depth-3 {
+  padding-left: 14px;
+  font-size: 0.8125rem;
+}
+
+.toc-side {
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+}
+
+.toc-inline {
+  display: none;
+  margin-bottom: 24px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+.toc-inline summary {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.toc-inline ul {
+  margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .toc-side {
+    display: none;
+  }
+
+  .toc-inline {
+    display: block;
+  }
+}
+
+/* 코드 블록 복사 버튼 */
+.code-block {
+  position: relative;
+}
+
+/* 버튼이 코드 글자를 가리지 않도록 위쪽에 자리를 둔다 */
+.code-block pre {
+  padding-top: 40px;
+}
+
+.copy-code {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 2px 10px;
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.copy-code:hover {
+  opacity: 1;
+}
+
+/* 맨 위로 버튼 */
+.to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--brand-coral);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(43, 27, 61, 0.25);
+  cursor: pointer;
+}
+
+.to-top[hidden] {
+  display: none;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.donate {
+  padding: 4px 12px;
+  font-size: 0.875rem;
 }
