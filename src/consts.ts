@@ -28,6 +28,12 @@ export const CATEGORIES = [
     releases: 'https://github.com/LooseCannon-Dev/ReFinder-releases/releases/latest',
   },
   { name: 'HumComposer', slug: 'humcomposer' },
+  {
+    name: 'Tab Customizer',
+    slug: 'tab-customizer',
+    thumbnail: 'images/tab-customizer/icon.png',
+    releases: 'https://github.com/LooseCannon-Dev/TabCustomizer-releases/releases/latest',
+  },
 ] as const;
 
 export function categorySlug(name: string) {
