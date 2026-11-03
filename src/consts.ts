@@ -27,7 +27,6 @@ export const CATEGORIES = [
     thumbnail: 'images/refinder/icon.png',
     releases: 'https://github.com/LooseCannon-Dev/ReFinder-releases/releases/latest',
   },
-  { name: 'HumComposer', slug: 'humcomposer' },
   {
     name: 'Tab Customizer',
     slug: 'tab-customizer',

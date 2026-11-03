@@ -9,6 +9,8 @@ image: images/tab-customizer/hide_07_ctrl_q.png
 imageAlt: 동영상을 보던 중 Ctrl+Q를 누르자 딴짓 탭 그룹이 접히고 업무 문서 화면이 나온 모습
 ---
 
+<div class="video-embed"><iframe src="https://www.youtube.com/embed/CcfQra8OJ9c" title="Tab Customizer 소개 영상" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+
 회사에서 잠깐 동영상을 보거나 쇼핑몰을 둘러보다 보면, 탭 목록에 떠 있는 사이트 이름이 신경 쓰입니다.
 누가 뒤를 지나갈 때 탭을 하나하나 닫자니 늦고, 그대로 두자니 다 보입니다.
 
