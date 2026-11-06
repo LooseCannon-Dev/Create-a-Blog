@@ -40,4 +40,6 @@ TeamBoard(이하 "앱")는 사용자의 개인정보를 아래와 같이 다룹�
 
 ## 6. 문의
 
-이 글의 댓글로 문의해 주세요.
+메일: [dkswogur0707@gmail.com](mailto:dkswogur0707@gmail.com)
+
+이 글의 댓글로도 문의할 수 있습니다.

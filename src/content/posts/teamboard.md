@@ -28,4 +28,6 @@ Windows 10/11, macOS 12 이상
 
 ## 문의
 
-이 글의 댓글로 문의해 주세요.
+메일: [dkswogur0707@gmail.com](mailto:dkswogur0707@gmail.com)
+
+이 글의 댓글로도 문의할 수 있습니다.
