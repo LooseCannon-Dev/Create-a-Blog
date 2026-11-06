@@ -33,6 +33,7 @@ export const CATEGORIES = [
     thumbnail: 'images/tab-customizer/icon.png',
     releases: 'https://github.com/LooseCannon-Dev/TabCustomizer-releases/releases/latest',
   },
+  { name: 'TeamBoard', slug: 'teamboard' },
 ] as const;
 
 export function categorySlug(name: string) {
